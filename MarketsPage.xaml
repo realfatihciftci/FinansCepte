@@ -3,34 +3,50 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinansCepte.MarketsPage"
-             Title="Piyasalar">
-    <RefreshView>
-         <ScrollView>
-            <StackLayout Padding="15" Spacing="15">
-                <Label Text="Döviz Kurları" FontAttributes="Bold" FontSize="18"/>
-                <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto, Auto">
-                    <Label Text="Birim" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
-                    <Label Text="Alış" FontAttributes="Bold" Grid.Row="0" Grid.Column="1"/>
-                    <Label Text="Satış" FontAttributes="Bold" Grid.Row="0" Grid.Column="2"/>
-                    
-                    <Label Text="USD/TRY" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0"/>
-                    <Label Text="34.15" TextColor="Green" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"/>
-                    <Label Text="34.50" TextColor="Red" Grid.Row="1" Grid.Column="2" Margin="0,10,0,0"/>
-                </Grid>
-                
-                <BoxView HeightRequest="1" Color="LightGray"/>
-                
-                <Label Text="Altın / Emtia" FontAttributes="Bold" FontSize="18"/>
-                <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto, Auto">
-                    <Label Text="Tür" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
-                    <Label Text="Fiyat" FontAttributes="Bold" Grid.Row="0" Grid.Column="1"/>
-                    <Label Text="Değişim" FontAttributes="Bold" Grid.Row="0" Grid.Column="2"/>
+             Title="Piyasalar"
+             BackgroundColor="#F5F5F5">
+    <Grid RowDefinitions="Auto, Auto, *">
 
-                    <Label Text="Gram Altın" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0"/>
-                    <Label Text="2950 TL" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"/>
-                    <Label Text="%1.2" TextColor="Green" Grid.Row="1" Grid.Column="2" Margin="0,10,0,0"/> 
-                </Grid>
-            </StackLayout>
-        </ScrollView>
-    </RefreshView>
+        <Frame Grid.Row="0" Margin="10" Padding="0" CornerRadius="10" BackgroundColor="White" HasShadow="True">
+            <Grid ColumnDefinitions="*,*,*">
+                <Button x:Name="BtnDoviz" Text="Döviz" 
+                        Clicked="OnDovizClicked"
+                        BackgroundColor="#2D3447" TextColor="White" 
+                        CornerRadius="10" Margin="2" HeightRequest="45" FontSize="13"/>
+
+                <Button x:Name="BtnMaden" Text="Kıymetli Maden" Grid.Column="1"
+                        Clicked="OnMadenClicked"
+                        BackgroundColor="Transparent" TextColor="Gray" 
+                        CornerRadius="10" Margin="2" HeightRequest="45" FontSize="13"/>
+
+                <Button x:Name="BtnBorsa" Text="Borsa" Grid.Column="2"
+                        Clicked="OnBorsaClicked"
+                        BackgroundColor="Transparent" TextColor="Gray" 
+                        CornerRadius="10" Margin="2" HeightRequest="45" FontSize="13"/>
+            </Grid>
+        </Frame>
+
+        <Grid Grid.Row="1" ColumnDefinitions="2*, 1*, 1*" Padding="15,5">
+            <Label Grid.Column="0" Text="VARLIK İSMİ" FontAttributes="Bold" TextColor="Gray" FontSize="12"/>
+            <Label Grid.Column="1" Text="ALIŞ" FontAttributes="Bold" TextColor="Gray" FontSize="12" HorizontalOptions="End"/>
+            <Label Grid.Column="2" Text="SATIŞ" FontAttributes="Bold" TextColor="Gray" FontSize="12" HorizontalOptions="End"/>
+        </Grid>
+
+        <CollectionView Grid.Row="2" x:Name="MarketsList" Margin="10,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,4" Padding="15,10" CornerRadius="8" BorderColor="Transparent" BackgroundColor="White">
+                        <Grid ColumnDefinitions="2*, 1*, 1*">
+                            <Label Grid.Column="0" Text="{Binding Name}" FontAttributes="Bold" TextColor="#333" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Column="1" Text="{Binding BuyPrice}" TextColor="#2D3447" HorizontalOptions="End" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Column="2" Text="{Binding SellPrice}" TextColor="#2D3447" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
 </ContentPage>
