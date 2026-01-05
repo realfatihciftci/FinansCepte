@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinansCepte.Pages;
+namespace FinansCepte;
 
 public partial class MarketsPage : ContentPage
 {
     public MarketsPage()
     {
-        
+        InitializeComponent();
     }
 }
