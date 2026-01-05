@@ -6,9 +6,18 @@
     xmlns:local="clr-namespace:FinansCepte"
     Title="FinansCepte">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <TabBar>
+        <Tab Title="Özet">
+            <ShellContent ContentTemplate="{DataTemplate local:DashboardPage}"/>
+        </Tab> 
+        <Tab Title="Piyasalar">
+            <ShellContent ContentTemplate="{DataTemplate local:MarketsPage}"/>
+        </Tab>
+        <Tab Title="İşlem Ekle">
+            <ShellContent ContentTemplate="{DataTemplate local:AddTransactions}"/>
+        </Tab>
+        <Tab Title="Analiz">
+            <ShellContent ContentTemplate="{DataTemplate local:AnalysisPage}"/>
+        </Tab>
+    </TabBar>
 </Shell>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinansCepte.DashboardPage"
+             Title="Genel Bakış"
+             BackgroundColor="#F0F2F5">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+        
+        <Frame Grid.Row="0" Margin="15" CornerRadius="20" BackgroundColor="#2D3447" HasShadow="True">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Toplam Varlık" TextColor="Gray" FontSize="14" HorizontalOptions="Center"/>
+                <Label Text="₺ 125,450.00" TextColor="White" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Text="+ %2.5 (Bu Ay)" TextColor="#4CAF50" FontSize="12" HorizontalOptions="Center"/>
+            </StackLayout>
+        </Frame>
+
+        <Label Grid.Row="1" Text="Son Hareketler" Margin="15,0,0,5" FontAttributes="Bold" FontSize="18" TextColor="#333"/>
+        <CollectionView Grid.Row="2" Margin="15">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Market Alışverişi - 1250₺</x:String>
+                    <x:String>Eczane - 250₺</x:String>
+                    <x:String>Gram Altın Alımı -6200₺</x:String>
+                    <x:String>Gram Gümüş Alımı -600₺</x:String>
+                    <x:String>Boğaziçi Bursu 8000₺</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="15" CornerRadius="10" BackgroundColor="White" BorderColor="Transparent">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackLayout Grid.Column="0">
+                                <Label Text="{Binding .}" FontAttributes="Bold" TextColor="#333"/>
+                                <Label Text="Bugün" FontSize="12" TextColor="Gray"/>
+                            </StackLayout>
+                            <Label Grid.Column="1" Text="-₺1250" TextColor="Red" VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

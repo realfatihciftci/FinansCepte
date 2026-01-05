@@ -64,4 +64,38 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <MauiXaml Update="MarketsPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="DashboardPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="AnalysisPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="AddTransactions.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="MarketsPage.xaml.cs">
+        <DependentUpon>MarketsPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="DashboardPage.xaml.cs">
+        <DependentUpon>DashboardPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="AnalysisPage.xaml.cs">
+        <DependentUpon>AnalysisPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="AddTransactions.xaml.cs">
+        <DependentUpon>AddTransactions.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>
