@@ -11,10 +11,16 @@ namespace FinansCepte;
 public partial class AddTransactions : ContentPage
 {
     private string selectedType = "Gider";
+    private readonly LocalDbService _dbService;
+    string[] GiderKategorileri = { "Market", "Fatura", "Kira", "Ulaşım", "Sağlık", "Eğlence", "Diğer" };
+    string[] GelirKategorileri = { "Maaş", "Prim", "Satış", "Kira Geliri", "Borç Tahsilatı", "Diğer" };
+    string[] YatırımKategorileri = { "Altın", "Döviz", "Hisse", "Fon", "Kripto" };
 
-    public AddTransactions()
+    
+    public AddTransactions(LocalDbService dbService)
     {
         InitializeComponent();
+        _dbService = dbService;
         UpdateUI();
     }
 
@@ -30,6 +36,7 @@ public partial class AddTransactions : ContentPage
 
     void UpdateUI()
     {
+        
         BtnGider.BackgroundColor = Colors.LightGray;
         BtnGider.TextColor = Colors.Gray;
         
@@ -43,19 +50,38 @@ public partial class AddTransactions : ContentPage
         {
             BtnGider.BackgroundColor = Colors.Gray;
             BtnGider.TextColor = Colors.White;
-            StkInvestment.IsVisible = false;
         }
         else if (selectedType == "Gelir")
         {
             BtnGelir.BackgroundColor = Colors.Gray;
             BtnGelir.TextColor = Colors.White;
-            StkInvestment.IsVisible = false;
         }
         else if (selectedType == "Yatırım")
         {
             BtnYatırım.BackgroundColor = Colors.Gray;
             BtnYatırım.TextColor = Colors.White;
-            StkInvestment.IsVisible = true;
+        }
+        UpdateCategories();
+    }
+    
+    void UpdateCategories()
+    {
+        PckCategory.SelectedItem = null; 
+
+        if (selectedType == "Gider")
+        {
+            PckCategory.ItemsSource = GiderKategorileri;
+            PckCategory.Title = "Gider Kategorisi Seç";
+        }
+        else if (selectedType == "Gelir")
+        {
+            PckCategory.ItemsSource = GelirKategorileri;
+            PckCategory.Title = "Gelir Kaynağı Seç";
+        }
+        else 
+        {
+            PckCategory.ItemsSource = YatırımKategorileri;
+            PckCategory.Title = "Yatırım Türü";
         }
     }
 
@@ -72,33 +98,15 @@ public partial class AddTransactions : ContentPage
             Type = selectedType,
             Title = EntTitle.Text,
             Date = DtDate.Date,
-            Amount = Convert.ToDecimal(EntAmount.Text)
+            Amount = Convert.ToDecimal(EntAmount.Text.Replace(".",",")),
+            Category = PckCategory.SelectedItem?.ToString() ?? "Diğer"
         };
-
-        if (selectedType == "Yatırım")
-        {
-            newItem.AssetName = PckAsset.SelectedItem?.ToString();
-
-            if (!string.IsNullOrEmpty(EntQuantity.Text))
-                newItem.UnitPrice = Convert.ToDecimal(EntUnitPrice.Text);
-        }
         
-        FakeDb.Add(newItem);
+        await _dbService.CreateTransactionAsync(newItem);
         await DisplayAlert("Başarılı", "İşlem Başarıyla Eklendi!", "Tamam");
 
-        EntAmount.Text = "";
-        EntTitle.Text = "";
-
-        string mesaj = $"{selectedType} işlemi seçildi.\nTutar: {EntAmount.Text} TL";
-
-        if (selectedType == "Yatırım")
-        {
-            mesaj += $"\nVarlık: {PckAsset.SelectedItem}";
-            mesaj += $"\nMiktar: {EntQuantity.Text}";
-        }
-        await DisplayAlert("Başarılı ", mesaj, "Tamam");
-        {
-            
-        }
+        EntAmount.Text = string.Empty;
+        EntTitle.Text = string.Empty;
+        
     }
 }
