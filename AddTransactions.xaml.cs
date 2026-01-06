@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinansCepte.Data;
+using FinansCepte.Models;
 
 namespace FinansCepte;
 
@@ -64,6 +66,28 @@ public partial class AddTransactions : ContentPage
             await DisplayAlert("Uyarı", "Lütfen bir tutar girin.", "Tamam");
                 return;
         }
+
+        var newItem = new Transaction
+        {
+            Type = selectedType,
+            Title = EntTitle.Text,
+            Date = DtDate.Date,
+            Amount = Content.ToDecimal(EntAmount.Text)
+        };
+
+        if (selectedType == "Yatırım")
+        {
+            newItem.AssetName = PckAsset.SelectedItem?.ToString();
+
+            if (!string.IsNullOrEmpty(EntQuantity.Text))
+                newItem.UnitPrice = Convert.ToDecimal(EntUnitPrice.Text);
+        }
+        
+        FakeDb.Add(newItem);
+        await DisplayAlert("Başarılı", "İşlem Başarıyla Eklendi!", "Tamam");
+
+        EntAmount.Text = "";
+        EntTitle.Text = "";
 
         string mesaj = $"{selectedType} işlemi seçildi.\nTutar: {EntAmount.Text} TL";
 
