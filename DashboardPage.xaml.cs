@@ -11,20 +11,28 @@ namespace FinansCepte;
 
 public partial class DashboardPage : ContentPage
 {
-    public DashboardPage()
+    private readonly LocalDbService _dbService;
+    public DashboardPage(LocalDbService dbService)
     {
         InitializeComponent();
+        _dbService = dbService;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        LoadData();
+        await LoadData();
     }
 
-    void LoadData()
+    async Task LoadData()
     {
-        var transactions = FakeDb.Transactions;
+        var transactions = await _dbService.GetTransactionsAsync();
+
+        if (CvTransactions != null)
+        {
+            CvTransactions.ItemsSource = transactions.OrderByDescending(t => t.Date).ToList();
+        }
+        
         
         decimal totalIncome = transactions
             .Where((t => t.Type == "Gelir"))
@@ -40,9 +48,9 @@ public partial class DashboardPage : ContentPage
         LblTotalExpense.Text = totalExpense.ToString("N2") + "₺";
         LblTotalBalance.Text = balance.ToString("N2") + "₺";
 
-        if (balance < 0)
+        if (balance < 0) 
             LblTotalBalance.TextColor = Colors.Red;
-        else
+        else 
             LblTotalBalance.TextColor = Colors.Green;
 
     }
