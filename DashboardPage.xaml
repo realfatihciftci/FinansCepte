@@ -5,41 +5,39 @@
              x:Class="FinansCepte.DashboardPage"
              Title="Genel Bakış"
              BackgroundColor="#F0F2F5">
-
-    <Grid RowDefinitions="Auto, Auto, *">
-        
-        <Frame Grid.Row="0" Margin="15" CornerRadius="20" BackgroundColor="#2D3447" HasShadow="True">
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                <Label Text="Toplam Varlık" TextColor="Gray" FontSize="14" HorizontalOptions="Center"/>
-                <Label Text="₺ 125,450.00" TextColor="White" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"/>
-                <Label Text="+ %2.5 (Bu Ay)" TextColor="#4CAF50" FontSize="12" HorizontalOptions="Center"/>
-            </StackLayout>
-        </Frame>
-
-        <Label Grid.Row="1" Text="Son Hareketler" Margin="15,0,0,5" FontAttributes="Bold" FontSize="18" TextColor="#333"/>
-        <CollectionView Grid.Row="2" Margin="15">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Market Alışverişi - 1250₺</x:String>
-                    <x:String>Eczane - 250₺</x:String>
-                    <x:String>Gram Altın Alımı -6200₺</x:String>
-                    <x:String>Gram Gümüş Alımı -600₺</x:String>
-                    <x:String>Boğaziçi Bursu 8000₺</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="0,5" Padding="15" CornerRadius="10" BackgroundColor="White" BorderColor="Transparent">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <StackLayout Grid.Column="0">
-                                <Label Text="{Binding .}" FontAttributes="Bold" TextColor="#333"/>
-                                <Label Text="Bugün" FontSize="12" TextColor="Gray"/>
-                            </StackLayout>
-                            <Label Grid.Column="1" Text="-₺1250" TextColor="Red" VerticalOptions="Center"/>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="15">
+            
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="Black"
+                    Padding="20"
+                    StrokeThickness="0">
+                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Label Text="Toplam Varlık" TextColor="LightGray" FontSize="14" HorizontalOptions="Center"/>
+                    
+                    <Label x:Name="LblTotalBalance"
+                           Text="0.00₺"
+                           TextColor="White" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+            
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                <Border Grid.Column="0" StrokeShape="RoundRectangle 15" BackgroundColor="LightGray" Padding="15" StrokeThickness="0">
+                    <VerticalStackLayout>
+                       <Label Text="Gelir" TextColor="Green" FontSize="12"/>
+                       <Label x:Name="LblTotalIncome" Text="0.00₺" TextColor="Green" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" StrokeShape="RoundRectangle 15" BackgroundColor="LightGray" Padding="15" StrokeThickness="0">
+                    <VerticalStackLayout>
+                        <Label Text="Gider" TextColor="Red" FontSize="12"/>
+                        <Label x:Name="LblTotalExpense" Text="0.00₺" TextColor="Red" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+            
+            <Label Text="Son Hareketler" FontAttributes="Bold" FontSize="18" TextColor="Black" Margin="0,10,0,0"/>
+            <Label Text="Henüz işlem yok..." TextColor="Gray" HorizontalOptions="Center" Margin="0,20"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
