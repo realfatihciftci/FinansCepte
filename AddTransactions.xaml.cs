@@ -72,7 +72,7 @@ public partial class AddTransactions : ContentPage
             Type = selectedType,
             Title = EntTitle.Text,
             Date = DtDate.Date,
-            Amount = Content.ToDecimal(EntAmount.Text)
+            Amount = Convert.ToDecimal(EntAmount.Text)
         };
 
         if (selectedType == "Yatırım")
