@@ -57,7 +57,7 @@ public partial class MarketsPage : ContentPage
     void LoadBorsa()
     {
         MyList.Clear();
-        MyList.Add(new MarketItem { Name = "THY (THYAO)", BuyPrice = "270.00", SellPrice = "270.50" });
+        MyList.Add(new MarketItem { Name = "THY", BuyPrice = "270.00", SellPrice = "270.50" });
         MyList.Add(new MarketItem { Name = "Aselsan", BuyPrice = "64.10", SellPrice = "64.20" });
         MyList.Add(new MarketItem { Name = "Garanti BBVA", BuyPrice = "112.50", SellPrice = "112.80" });
     }
