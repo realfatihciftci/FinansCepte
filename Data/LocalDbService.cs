@@ -25,4 +25,9 @@ public class LocalDbService
     {
         await _connection.InsertAsync(transaction);
     }
+    
+    public async Task DeleteTransactionAsync(Transaction transaction)
+    {
+        await _connection.DeleteAsync(transaction);
+    }
 }

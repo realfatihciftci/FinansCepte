@@ -12,6 +12,7 @@ namespace FinansCepte;
 public partial class DashboardPage : ContentPage
 {
     private readonly LocalDbService _dbService;
+
     public DashboardPage(LocalDbService dbService)
     {
         InitializeComponent();
@@ -32,26 +33,43 @@ public partial class DashboardPage : ContentPage
         {
             CvTransactions.ItemsSource = transactions.OrderByDescending(t => t.Date).ToList();
         }
-        
-        
+
+
         decimal totalIncome = transactions
             .Where((t => t.Type == "Gelir"))
             .Sum(t => t.Amount);
-        
+
         decimal totalExpense = transactions
             .Where(t => t.Type == "Gider")
             .Sum(t => t.Amount);
-        
+
         decimal balance = totalIncome - totalExpense;
 
         LblTotalIncome.Text = totalIncome.ToString("N2") + "₺";
         LblTotalExpense.Text = totalExpense.ToString("N2") + "₺";
         LblTotalBalance.Text = balance.ToString("N2") + "₺";
 
-        if (balance < 0) 
+        if (balance < 0)
             LblTotalBalance.TextColor = Colors.Red;
-        else 
+        else
             LblTotalBalance.TextColor = Colors.Green;
 
+    }
+    
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        var transaction = button?.CommandParameter as Transaction;
+
+        if (transaction != null)
+        {
+            bool answer = await DisplayAlert("Sil", "Bu kaydı silmek istiyor musunuz?", "Evet", "Hayır");
+
+            if (answer)
+            {
+                await _dbService.DeleteTransactionAsync(transaction);
+                await LoadData();
+            }
+        }
     }
 }

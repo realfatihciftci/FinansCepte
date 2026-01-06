@@ -48,7 +48,7 @@
                                 Margin="0.5"
                                 StrokeThickness="0">
                             
-                            <Grid ColumnDefinitions="*, Auto">
+                            <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
                                 <VerticalStackLayout Grid.Column="0" Spacing="2">
                                     <Label Text="{Binding Category}" FontAttributes="Bold" TextColor="Black"/>
                                     <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="Gray"/>
@@ -60,6 +60,19 @@
                                        TextColor="Black"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center"></Label>
+                                <Button Grid.Column="2"
+                                        Text="X"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        BackgroundColor="#FFEBEB"
+                                        TextColor="Red"
+                                        HeightRequest="40"
+                                        WidthRequest="40"
+                                        CornerRadius="20"
+                                        Padding="0"
+                                        VerticalOptions="Center"
+                                        Clicked="OnDeleteClicked"
+                                        CommandParameter="{Binding .}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
