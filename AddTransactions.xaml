@@ -33,41 +33,6 @@
                        HorizontalTextAlignment="Center" HeightRequest="60"/>
             </Frame>
             
-            <VerticalStackLayout x:Name="StkInvestment" Spacing="10" IsVisible="False">
-                <BoxView HeightRequest="1" Color="LightGray" Margin="0,10"/>
-                <Label Text="Yatırım Bilgileri" FontAttributes="Bold" TextColor="black"/>
-                
-                <Frame CornerRadius="10" Padding="0" BorderColor="LightGray">
-                    <Picker x:Name="PckAsset" Title="Ne Aldın?" TitleColor="Gray">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Gram Altın</x:String>
-                                <x:String>Çeyrek Altın</x:String>
-                                <x:String>Dolar</x:String>
-                                <x:String>Euro</x:String>
-                                <x:String>Hisse</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
-                </Frame>
-                
-                <Grid ColumnDefinitions="*,*">
-                    <StackLayout Grid.Column="0" Margin="0,0, 5,0">
-                        <Label Text="Miktar" FontSize="11" TextColor="Gray"/>
-                        <Frame CornerRadius="10" Padding="0" BorderColor="LightGray">
-                            <Entry x:Name="EntQuantity" Placeholder="3" HorizontalTextAlignment="Center"/>
-                        </Frame>
-                    </StackLayout>
-                    
-                    <StackLayout Grid.Column="1" Margin="0,0,5,0">
-                        <Label Text="Birim Fiyatı" FontSize="11" TextColor="Gray"/>
-                        <Frame CornerRadius="10" Padding="0" BorderColor="LightGray">
-                            <Entry x:Name="EntUnitPrice" Placeholder="3200" HorizontalTextAlignment="Center"/>
-                        </Frame>
-                    </StackLayout>
-                </Grid>
-            </VerticalStackLayout>
-            
             <Label Text="Detaylar" TextColor="Gray" FontSize="12" Margin="5,10,0,0"/>
             
             <Frame CornerRadius="10" Padding="0" BorderColor="LightGray">
