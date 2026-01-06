@@ -4,12 +4,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinansCepte.Pages;
+namespace FinansCepte;
 
 public partial class AddTransactions : ContentPage
 {
+    private string selectedType = "Gider";
+
     public AddTransactions()
     {
+        InitializeComponent();
+        UpdateUI();
+    }
+
+    private void OnTypeChanged(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        if (button != null)
+        {
+            selectedType = button.Text;
+            UpdateUI();
+        }
+    }
+
+    void UpdateUI()
+    {
+        BtnGider.BackgroundColor = Colors.LightGray;
+        BtnGider.TextColor = Colors.Gray;
         
+        BtnGelir.BackgroundColor = Colors.LightGray;
+        BtnGelir.TextColor = Colors.Gray;
+        
+        BtnYatırım.BackgroundColor = Colors.LightGray;
+        BtnYatırım.TextColor = Colors.Gray;
+
+        if (selectedType == "Gider")
+        {
+            BtnGider.BackgroundColor = Colors.Gray;
+            BtnGider.TextColor = Colors.White;
+            StkInvestment.IsVisible = false;
+        }
+        else if (selectedType == "Gelir")
+        {
+            BtnGelir.BackgroundColor = Colors.Gray;
+            BtnGelir.TextColor = Colors.White;
+            StkInvestment.IsVisible = false;
+        }
+        else if (selectedType == "Yatırım")
+        {
+            BtnYatırım.BackgroundColor = Colors.Gray;
+            BtnYatırım.TextColor = Colors.White;
+            StkInvestment.IsVisible = true;
+        }
+    }
+
+    private async void OnSaveClicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(EntAmount.Text))
+        {
+            await DisplayAlert("Uyarı", "Lütfen bir tutar girin.", "Tamam");
+                return;
+        }
+
+        string mesaj = $"{selectedType} işlemi seçildi.\nTutar: {EntAmount.Text} TL";
+
+        if (selectedType == "Yatırım")
+        {
+            mesaj += $"\nVarlık: {PckAsset.SelectedItem}";
+            mesaj += $"\nMiktar: {EntQuantity.Text}";
+        }
+        await DisplayAlert("Başarılı ", mesaj, "Tamam");
+        {
+            
+        }
     }
 }
