@@ -21,7 +21,6 @@ public static class MauiProgram
             });
 
         builder.Services.AddSingleton<LocalDbService>();
-        
         builder.Services.AddTransient<DashboardPage>();
         builder.Services.AddTransient<AddTransactions>();
 
