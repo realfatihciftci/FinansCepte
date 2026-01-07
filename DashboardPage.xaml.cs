@@ -35,19 +35,20 @@ public partial class DashboardPage : ContentPage
         }
 
 
-        decimal totalIncome = transactions
+        decimal income = transactions
             .Where((t => t.Type == "Gelir"))
             .Sum(t => t.Amount);
 
-        decimal totalExpense = transactions
+        decimal expense = transactions
             .Where(t => t.Type == "Gider")
             .Sum(t => t.Amount);
+        decimal investment = transactions.Where(t => t.Type == "Yatırım").Sum(t => t.Amount);
 
-        decimal balance = totalIncome - totalExpense;
+        decimal balance = (income -(expense + investment));
 
-        LblTotalIncome.Text = totalIncome.ToString("N2") + "₺";
-        LblTotalExpense.Text = totalExpense.ToString("N2") + "₺";
         LblTotalBalance.Text = balance.ToString("N2") + "₺";
+        LblTotalIncome.Text = income.ToString("N2") + "₺";
+        LblTotalExpense.Text = expense.ToString("N2") + "₺";
 
         if (balance < 0)
             LblTotalBalance.TextColor = Colors.Red;

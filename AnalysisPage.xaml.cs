@@ -42,7 +42,7 @@ public partial class AnalysisPage : ContentPage
 
         // 2. Gelir ve Gider Toplamları (DECIMAL olarak hesaplıyoruz)
         decimal totalIncome = transactions.Where(t => t.Type == "Gelir").Sum(t => t.Amount);
-        decimal totalExpense = transactions.Where(t => t.Type == "Gider").Sum(t => t.Amount);
+        decimal totalExpense = transactions.Where(t => t.Type == "Gider" || t.Type == "Yatırım").Sum(t => t.Amount);
 
         // --- ÜST KART HESAPLAMALARI ---
         
@@ -72,7 +72,7 @@ public partial class AnalysisPage : ContentPage
         // --- KATEGORİ LİSTESİ ---
 
         var expenseGroups = transactions
-            .Where(t => t.Type == "Gider")
+            .Where(t => t.Type == "Gider" || t.Type == "Yatırım") // <-- BURASI DEĞİŞTİ
             .GroupBy(t => t.Category)
             .Select(g => new
             {
