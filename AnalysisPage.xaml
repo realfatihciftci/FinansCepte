@@ -13,57 +13,44 @@
                     Padding="20"
                     StrokeThickness="0">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="Bu ayki Harcama Limitin" TextColor="LightGray" FontSize="14" HorizontalOptions="Center"/>
-                    <Label Text="%65" TextColor="White" FontSize="40" FontAttributes="Bold" HorizontalOptions="Center"/>
-                    <Label Text="Kalan Bütçe: 3500₺" TextColor="#4CAF50" FontSize="14" HorizontalOptions="Center"/>
-                    <ProgressBar Progress="0.65" ProgressColor="#4CAF50" ScaleY="2" Margin="0,10,0,0"/>
+                    <Label Text="Aylık Bütçe Kullanımı" TextColor="LightGray" FontSize="14" HorizontalOptions="Center"/>
+                    <Label x:Name="LblPercentage" Text="%0" TextColor="White" FontSize="40" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label x:Name="LblRemaining" Text="Hesaplanıyor..." TextColor="#4CAF50" FontSize="14" HorizontalOptions="Center"/>
+                    <ProgressBar x:Name="PbLimit" Progress="0" ProgressColor="#4CAF50" ScaleY="2" Margin="0,10,0,0"/>
                 </VerticalStackLayout>
             </Border>
         
         <Label Text="Kategori Dağılımı" FontAttributes="Bold" FontSize="18" TextColor="Black" Margin="5,0,0,0"/>
         
-        <VerticalStackLayout Spacing="15">
-            <Border StrokeShape="RoundRectangle 10" Padding="15" StrokeThickness="0" BackgroundColor="White">
-                <VerticalStackLayout Spacing="5">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <Label Grid.Column="0" Text="Faturalar" FontAttributes="Bold" TextColor="#333"/>
-                        <Label Grid.Column="1" Text="1.200 ₺" TextColor="Gray"/>
-                    </Grid>
-                    <ProgressBar Progress="0.20" ProgressColor="#64B5F6" ScaleY="1.5"/>
-                </VerticalStackLayout>
+        <CollectionView x:Name="CvCategories" HeightRequest="300">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Spacing="5" Margin="0,0,0,15">
+                        <Border StrokeShape="RoundRectangle 10" Padding="15" StrokeThickness="0" BackgroundColor="White">
+                            <VerticalStackLayout Spacing="5">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Grid.Column="0" Text="{Binding Category}" FontAttributes="Bold" TextColor="#333"/>
+                                    <Label Grid.Column="1" Text="{Binding TotalAmount, StringFormat='{0:N0} ₺'}" TextColor="Gray"/>
+                                </Grid>
+                                <ProgressBar Progress="{Binding Percentage}" ProgressColor="{Binding ColorCode}" ScaleY="1.5"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+            <Border StrokeShape="RoundRectangle 10" Padding="15" StrokeThickness="0" BackgroundColor="White" Margin="0,10,0,20">
+                <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                    <Label Text="💡" FontSize="24" VerticalOptions="Center"/>
+                    <Label x:Name="LblTip" 
+                           Text="Veri bekleniyor..." 
+                           TextColor="#E65100" 
+                           FontSize="12" 
+                           VerticalOptions="Center"
+                           LineBreakMode="WordWrap"
+                           MaximumWidthRequest="300"/> </HorizontalStackLayout>
             </Border>
-            
-            <Border StrokeShape="RoundRectangle 10" Padding="15" StrokeThickness="0" BackgroundColor="White">
-                <VerticalStackLayout Spacing="5">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <Label Grid.Column="0" Text="Ulaşım / Yakıt" FontAttributes="Bold" TextColor="#333"/>
-                        <Label Grid.Column="1" Text="850 ₺" TextColor="Gray"/>
-                    </Grid>
-                    <ProgressBar Progress="0.10" ProgressColor="#FFB74D" ScaleY="1.5"/>
-                </VerticalStackLayout>
-            </Border>
-            
-            <Border StrokeShape="RoundRectangle 10" Padding="15" StrokeThickness="0" BackgroundColor="White">
-                <VerticalStackLayout Spacing="5">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <Label Grid.Column="0" Text="Yatırım (Altın)" FontAttributes="Bold" TextColor="#333"/>
-                        <Label Grid.Column="1" Text="15.000 ₺" TextColor="Gray"/>
-                    </Grid>
-                    <ProgressBar Progress="0.80" ProgressColor="#BA68C8" ScaleY="1.5"/>
-                </VerticalStackLayout>
-            </Border></VerticalStackLayout>
-
-        <Border StrokeShape="RoundRectangle 10" 
-                BackgroundColor="#FFF3E0" 
-                Stroke="#FFB74D" 
-                StrokeThickness="1"
-                Padding="15" 
-                Margin="0,10,0,20">
-            <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
-                <Label Text="💡" FontSize="24" VerticalOptions="Center"/>
-                <Label Text="İpucu: Bu ay en çok harcamayı Market kategorisinde yaptınız." TextColor="#E65100" FontSize="12" VerticalOptions="Center"/>
-            </HorizontalStackLayout>
-        </Border>
 
         </VerticalStackLayout>
     </ScrollView>

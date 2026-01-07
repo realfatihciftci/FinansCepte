@@ -23,6 +23,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<LocalDbService>();
         builder.Services.AddTransient<DashboardPage>();
         builder.Services.AddTransient<AddTransactions>();
+        builder.Services.AddTransient<AnalysisPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
