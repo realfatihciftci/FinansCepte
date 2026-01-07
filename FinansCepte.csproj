@@ -101,8 +101,4 @@
       </Compile>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Wievs\" />
-    </ItemGroup>
-
 </Project>
